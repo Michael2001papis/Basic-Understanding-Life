@@ -65,11 +65,19 @@ const questions: Question[] = [
   },
 ]
 
+type StoredQuestion = {
+  id: string
+  text: string
+  options: Option[]
+  selectedOptionId?: string
+}
+
 type QuizState = {
   currentIndex: number
   finished: boolean
-  answers: Record<string, string>
   openAnswer: string
+  openAnswerTimestamp?: number
+  questions: StoredQuestion[]
 }
 
 const STORAGE_KEY = 'quizState'
@@ -84,12 +92,34 @@ export function QuizSection() {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY)
       if (!raw) return
-      const parsed = JSON.parse(raw) as QuizState
-      if (parsed && typeof parsed.currentIndex === 'number') {
+      const parsed = JSON.parse(raw) as Partial<QuizState> & {
+        // תמיכה לאחור בגרסאות ישנות יותר
+        answers?: Record<string, string>
+      }
+
+      const restoredAnswers: Record<string, string> = {}
+
+      if (parsed.questions && Array.isArray(parsed.questions)) {
+        parsed.questions.forEach((q) => {
+          if (q && q.id && q.selectedOptionId) {
+            restoredAnswers[q.id] = q.selectedOptionId
+          }
+        })
+      } else if (parsed.answers) {
+        Object.assign(restoredAnswers, parsed.answers)
+      }
+
+      if (typeof parsed.currentIndex === 'number') {
         setCurrentIndex(parsed.currentIndex)
+      }
+      if (typeof parsed.finished === 'boolean') {
         setFinished(parsed.finished)
-        setAnswers(parsed.answers ?? {})
-        setOpenAnswer(parsed.openAnswer ?? '')
+      }
+      if (parsed.openAnswer) {
+        setOpenAnswer(parsed.openAnswer)
+      }
+      if (Object.keys(restoredAnswers).length > 0) {
+        setAnswers(restoredAnswers)
       }
     } catch {
       // אם יש נתון פגום באחסון, מתעלמים ממנו וממשיכים כרגיל
@@ -97,7 +127,20 @@ export function QuizSection() {
   }, [])
 
   useEffect(() => {
-    const state: QuizState = { currentIndex, finished, answers, openAnswer }
+    const storedQuestions: StoredQuestion[] = questions.map((q) => ({
+      id: q.id,
+      text: q.text,
+      options: q.options,
+      selectedOptionId: answers[q.id],
+    }))
+
+    const state: QuizState = {
+      currentIndex,
+      finished,
+      openAnswer,
+      openAnswerTimestamp: Date.now(),
+      questions: storedQuestions,
+    }
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [currentIndex, finished, answers, openAnswer])
 
