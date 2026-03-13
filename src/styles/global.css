@@ -459,6 +459,11 @@ h3 {
   margin-top: 0.8rem;
 }
 
+.quiz-finish-button {
+  margin-inline: auto;
+  margin-top: 0.4rem;
+}
+
 .quiz-note {
   margin-top: 0.45rem;
   font-size: 0.8rem;

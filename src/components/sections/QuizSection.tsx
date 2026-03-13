@@ -65,19 +65,41 @@ const questions: Question[] = [
   },
 ]
 
+type QuizState = {
+  currentIndex: number
+  finished: boolean
+  answers: Record<string, string>
+  openAnswer: string
+}
+
+const STORAGE_KEY = 'quizState'
+
 export function QuizSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [finished, setFinished] = useState(false)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [openAnswer, setOpenAnswer] = useState('')
-  const [savedMessage, setSavedMessage] = useState('')
 
   useEffect(() => {
-    const stored = window.localStorage.getItem('quizOpenAnswer')
-    if (stored) {
-      setOpenAnswer(stored)
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY)
+      if (!raw) return
+      const parsed = JSON.parse(raw) as QuizState
+      if (parsed && typeof parsed.currentIndex === 'number') {
+        setCurrentIndex(parsed.currentIndex)
+        setFinished(parsed.finished)
+        setAnswers(parsed.answers ?? {})
+        setOpenAnswer(parsed.openAnswer ?? '')
+      }
+    } catch {
+      // אם יש נתון פגום באחסון, מתעלמים ממנו וממשיכים כרגיל
     }
   }, [])
+
+  useEffect(() => {
+    const state: QuizState = { currentIndex, finished, answers, openAnswer }
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+  }, [currentIndex, finished, answers, openAnswer])
 
   const current = questions[currentIndex]
 
@@ -140,42 +162,23 @@ export function QuizSection() {
               value={openAnswer}
               onChange={(e) => {
                 setOpenAnswer(e.target.value)
-                setSavedMessage('')
               }}
               placeholder="מוזמנת לכתוב כאן באופן חופשי לגמרי. התשובה נשארת אצלך, ורק אם תבחרי לשתף היא תישלח הלאה."
             />
             <div className="quiz-actions">
               <button
                 type="button"
-                className="secondary-cta"
+                className="primary-cta quiz-finish-button"
                 onClick={() => {
-                  window.localStorage.setItem('quizOpenAnswer', openAnswer)
-                  setSavedMessage('התשובה נשמרה באופן מקומי בדפדפן שלך.')
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
               >
-                שמירה מקומית בלבד
-              </button>
-              <button
-                type="button"
-                className="primary-cta"
-                onClick={() => {
-                  if (!openAnswer.trim()) return
-                  const confirmSend = window.confirm(
-                    'התשובה תיפתח בחלון מייל ותישלח רק אם תאשרי במפורש. להמשיך?',
-                  )
-                  if (!confirmSend) return
-                  const subject = encodeURIComponent('שיתוף תשובה מהמשחקון באתר')
-                  const body = encodeURIComponent(openAnswer)
-                  window.location.href = `mailto:?subject=${subject}&body=${body}`
-                }}
-              >
-                אפשרות לשתף במייל
+                סיימתי את החידון 🙂
               </button>
             </div>
-            {savedMessage && <p className="quiz-note">{savedMessage}</p>}
             <p className="quiz-note">
-              אף תשובה לא נשלחת אוטומטית. השיתוף מתבצע רק אם תבחרי בו במפורש דרך
-              המייל שלך.
+              כל הבחירות והתשובה הפתוחה נשמרות באופן מקומי בדפדפן שלך, כך שאפשר
+              לחזור אליהן גם בהמשך.
             </p>
           </div>
         </div>

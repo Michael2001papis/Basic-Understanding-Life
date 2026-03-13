@@ -47,3 +47,6 @@ npm run dev
 
 Michael Papismedov – MP  
 
+© Michael Papismedov – MP
+Website Developer
+
