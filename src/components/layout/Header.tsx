@@ -1,20 +1,12 @@
 import { useState } from 'react'
+import { navItems } from '../../navigationConfig'
 
-const sections = [
-  { id: 'hero', label: 'הבית' },
-  { id: 'intro', label: 'למה האתר קיים' },
-  { id: 'quiz', label: 'משחקון קצר' },
-  { id: 'body-mind', label: 'מה עובר על אדם במצוקה' },
-  { id: 'anger', label: 'למה הכאב יוצא ככעס' },
-  { id: 'mistakes', label: 'טעויות נפוצות' },
-  { id: 'correct-response', label: 'מה נכון לעשות' },
-  { id: 'patterns', label: 'מתי זה דפוס' },
-  { id: 'needs', label: 'צרכים רגשיים' },
-  { id: 'faq', label: 'שאלות ותשובות' },
-  { id: 'final-message', label: 'מסר מסכם' },
-]
+type HeaderProps = {
+  theme: 'light' | 'dark'
+  onToggleTheme: () => void
+}
 
-export function Header() {
+export function Header({ theme, onToggleTheme }: HeaderProps) {
   const [open, setOpen] = useState(false)
 
   const handleScroll = (id: string) => {
@@ -33,6 +25,14 @@ export function Header() {
         </div>
         <button
           type="button"
+          className="theme-toggle"
+          aria-label={theme === 'dark' ? 'מעבר למצב בהיר' : 'מעבר למצב כהה'}
+          onClick={onToggleTheme}
+        >
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
+        <button
+          type="button"
           className="nav-toggle"
           aria-label={open ? 'סגירת תפריט' : 'פתיחת תפריט'}
           aria-expanded={open}
@@ -44,10 +44,10 @@ export function Header() {
         </button>
         <nav className="main-nav" aria-label="ניווט ראשי">
           <ul>
-            {sections.map((section) => (
-              <li key={section.id}>
-                <button type="button" onClick={() => handleScroll(section.id)}>
-                  {section.label}
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <button type="button" onClick={() => handleScroll(item.id)}>
+                  {item.label}
                 </button>
               </li>
             ))}
