@@ -1,0 +1,388 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.95rem;
+  }
+}
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-main {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.logo-sub {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav button {
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.main-nav button:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav ul {
+    justify-content: flex-start;
+  }
+}
+
+.hero-section {
+  padding: 4rem 1.25rem 3rem;
+  background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+}
+
+.hero-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.hero-text {
+  max-width: 680px;
+}
+
+.hero-eyebrow {
+  font-size: 0.9rem;
+  color: #a5b4fc;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+h1 {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: #cbd5f5;
+  margin: 0 0 1.5rem;
+}
+
+.hero-actions {
+  margin-top: 1.5rem;
+}
+
+.primary-cta,
+.secondary-cta {
+  border-radius: 999px;
+  padding: 0.6rem 1.3rem;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.primary-cta {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #f9fafb;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.6);
+}
+
+.primary-cta:hover {
+  transform: translateY(-1px);
+}
+
+.secondary-cta {
+  background: transparent;
+  color: #e5e7eb;
+  border-color: rgba(148, 163, 184, 0.6);
+}
+
+.quote-block {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  color: #e5e7eb;
+  font-size: 0.98rem;
+}
+
+.page-section {
+  padding: 3.25rem 1.25rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.section-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0 0 0.5rem;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  margin: 0 0 1.25rem;
+}
+
+.section-content {
+  max-width: 720px;
+}
+
+p {
+  margin: 0 0 0.9rem;
+  color: #e5e7eb;
+}
+
+h3 {
+  margin: 1.5rem 0 0.4rem;
+  font-size: 1.1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.info-card {
+  padding: 1rem 1.1rem;
+  border-radius: 0.9rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.info-card h3 {
+  margin-top: 0;
+}
+
+.steps-list {
+  margin: 1.25rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.steps-list li {
+  margin-bottom: 0.6rem;
+}
+
+.comparison-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.comparison-cell {
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.faq-list {
+  margin-top: 1.5rem;
+}
+
+.faq-item {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.85);
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 0.7rem;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item p {
+  margin-top: 0.6rem;
+}
+
+.contact-form {
+  margin-top: 1.5rem;
+  max-width: 540px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  padding: 0.55rem 0.7rem;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.site-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 1.25rem 1.25rem 1.5rem;
+  background: #020617;
+}
+
+.footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-name {
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.footer-meta {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer-dev-signature {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.footer-personal-message {
+  max-width: 960px;
+  margin: 0.75rem auto 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.8);
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+  .section-content {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
