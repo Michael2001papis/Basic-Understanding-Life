@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SectionWrapper } from '../shared/SectionWrapper'
 
 type Option = {
@@ -69,6 +69,15 @@ export function QuizSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [finished, setFinished] = useState(false)
   const [answers, setAnswers] = useState<Record<string, string>>({})
+  const [openAnswer, setOpenAnswer] = useState('')
+  const [savedMessage, setSavedMessage] = useState('')
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem('quizOpenAnswer')
+    if (stored) {
+      setOpenAnswer(stored)
+    }
+  }, [])
 
   const current = questions[currentIndex]
 
@@ -120,6 +129,55 @@ export function QuizSection() {
             אם תרצו, אפשר לחזור לשאלות בראש ולשאול: איפה זה פוגש אותי? איפה זה פגש
             את מי שאני אוהב או אוהבת?
           </p>
+          <div className="quiz-open-question">
+            <p className="quiz-question">
+              ואם נעצור רגע בשבילך – איך את באמת מרגישה בתוך הקשר שלך? עד כמה יש שם
+              ביטחון, חופש, אהבה ותמיכה, ומה בכל זאת עובד טוב בשבילך?
+            </p>
+            <textarea
+              className="quiz-textarea"
+              rows={5}
+              value={openAnswer}
+              onChange={(e) => {
+                setOpenAnswer(e.target.value)
+                setSavedMessage('')
+              }}
+              placeholder="מוזמנת לכתוב כאן באופן חופשי לגמרי. התשובה נשארת אצלך, ורק אם תבחרי לשתף היא תישלח הלאה."
+            />
+            <div className="quiz-actions">
+              <button
+                type="button"
+                className="secondary-cta"
+                onClick={() => {
+                  window.localStorage.setItem('quizOpenAnswer', openAnswer)
+                  setSavedMessage('התשובה נשמרה באופן מקומי בדפדפן שלך.')
+                }}
+              >
+                שמירה מקומית בלבד
+              </button>
+              <button
+                type="button"
+                className="primary-cta"
+                onClick={() => {
+                  if (!openAnswer.trim()) return
+                  const confirmSend = window.confirm(
+                    'התשובה תיפתח בחלון מייל ותישלח רק אם תאשרי במפורש. להמשיך?',
+                  )
+                  if (!confirmSend) return
+                  const subject = encodeURIComponent('שיתוף תשובה מהמשחקון באתר')
+                  const body = encodeURIComponent(openAnswer)
+                  window.location.href = `mailto:?subject=${subject}&body=${body}`
+                }}
+              >
+                אפשרות לשתף במייל
+              </button>
+            </div>
+            {savedMessage && <p className="quiz-note">{savedMessage}</p>}
+            <p className="quiz-note">
+              אף תשובה לא נשלחת אוטומטית. השיתוף מתבצע רק אם תבחרי בו במפורש דרך
+              המייל שלך.
+            </p>
+          </div>
         </div>
       )}
     </SectionWrapper>

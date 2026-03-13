@@ -393,6 +393,28 @@ h3 {
   border: 1px solid rgba(148, 163, 184, 0.45);
 }
 
+.quiz-open-question {
+  margin-top: 1.2rem;
+}
+
+.quiz-textarea {
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.quiz-note {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
 .faq-list {
   margin-top: 1.5rem;
 }
