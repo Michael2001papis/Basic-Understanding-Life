@@ -9,9 +9,9 @@ import { CommonMistakesSection } from './components/sections/CommonMistakesSecti
 import { CorrectResponseSection } from './components/sections/CorrectResponseSection'
 import { RepeatingPatternsSection } from './components/sections/RepeatingPatternsSection'
 import { EmotionalNeedsSection } from './components/sections/EmotionalNeedsSection'
+import { QuizSection } from './components/sections/QuizSection'
 import { FAQSection } from './components/sections/FAQSection'
 import { FinalMessageSection } from './components/sections/FinalMessageSection'
-import { ContactSection } from './components/sections/ContactSection'
 
 export function App() {
   return (
@@ -23,11 +23,11 @@ export function App() {
       <AngerExplanationSection />
       <CommonMistakesSection />
       <CorrectResponseSection />
+      <QuizSection />
       <RepeatingPatternsSection />
       <EmotionalNeedsSection />
       <FAQSection />
       <FinalMessageSection />
-      <ContactSection />
     </AppLayout>
   )
 }
