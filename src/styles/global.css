@@ -451,9 +451,9 @@ html[data-quick-ui='true'] .view-content {
   margin: 0 auto;
 }
 
-/* חידון + חידון תרחישים – אותה תמונת רקע (סעיף 24) */
-.view-content.view-quiz,
-.view-content.view-scenario-quiz {
+/* חידון + חידון תרחישים – אותה תמונת רקע על הסקשן עצמו (סעיף 24, בקשת משתמש) */
+#quiz.page-section,
+#scenario-quiz.page-section {
   position: relative;
   background-color: var(--bg);
   background-image: url("/backgrounds/Background image for quizzes.jpg");
@@ -463,8 +463,8 @@ html[data-quick-ui='true'] .view-content {
   background-attachment: scroll;
 }
 
-.view-content.view-quiz::before,
-.view-content.view-scenario-quiz::before {
+#quiz.page-section::before,
+#scenario-quiz.page-section::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -473,13 +473,13 @@ html[data-quick-ui='true'] .view-content {
   transition: background 0.3s ease;
 }
 
-[data-theme='light'] .view-content.view-quiz::before,
-[data-theme='light'] .view-content.view-scenario-quiz::before {
+[data-theme='light'] #quiz.page-section::before,
+[data-theme='light'] #scenario-quiz.page-section::before {
   background: rgba(249, 250, 251, 0.45);
 }
 
-.view-content.view-quiz > *,
-.view-content.view-scenario-quiz > * {
+#quiz.page-section .section-inner,
+#scenario-quiz.page-section .section-inner {
   position: relative;
   z-index: 1;
 }
@@ -579,8 +579,8 @@ html[data-quick-ui='true'] .view-content {
     background-position: center 25%, top;
   }
 
-  .view-content.view-quiz,
-  .view-content.view-scenario-quiz,
+  #quiz.page-section,
+  #scenario-quiz.page-section,
   #presence.page-section,
   #life-situations.page-section,
   #faq.page-section {
@@ -602,8 +602,8 @@ html[data-quick-ui='true'] .view-content {
 
 @media (min-width: 1201px) {
   .hero-section,
-  .view-content.view-quiz,
-  .view-content.view-scenario-quiz,
+  #quiz.page-section,
+  #scenario-quiz.page-section,
   #presence.page-section,
   #life-situations.page-section,
   #faq.page-section {
