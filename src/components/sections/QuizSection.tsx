@@ -1,5 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { SectionWrapper } from '../shared/SectionWrapper'
+
+/** Fisher-Yates shuffle – מחזיר עותק מעורבב בלי לשנות את המערך המקורי */
+function shuffle<T>(array: T[]): T[] {
+  const out = [...array]
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
 
 type Option = {
   id: string
@@ -304,6 +314,16 @@ function buildEmailBody(answers: Record<string, string>, openAnswer: string, sta
 }
 
 export function QuizSection() {
+  const [shuffleKey, setShuffleKey] = useState(0)
+  const shuffledQuestions = useMemo(
+    () =>
+      questions.map((q) => ({
+        ...q,
+        options: shuffle([...q.options]),
+      })),
+    [shuffleKey],
+  )
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [finished, setFinished] = useState(false)
   const [answers, setAnswers] = useState<Record<string, string>>({})
@@ -354,7 +374,7 @@ export function QuizSection() {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [currentIndex, finished, answers, openAnswer])
 
-  const current = questions[currentIndex]
+  const current = shuffledQuestions[currentIndex]
 
   const handleSelect = (questionId: string, option: Option) => {
     if (quizStartTimeRef.current === null) quizStartTimeRef.current = Date.now()
@@ -372,6 +392,25 @@ export function QuizSection() {
     } else {
       setCurrentIndex((prev) => prev + 1)
     }
+  }
+
+  const handleBackToPrevious = () => {
+    setShowExplanation(null)
+    setLastSelectedOption(null)
+    setCurrentIndex((prev) => Math.max(0, prev - 1))
+  }
+
+  const handleResetQuiz = () => {
+    window.localStorage.removeItem(STORAGE_KEY)
+    quizStartTimeRef.current = null
+    setCurrentIndex(0)
+    setFinished(false)
+    setAnswers({})
+    setOpenAnswer('')
+    setShowExplanation(null)
+    setLastSelectedOption(null)
+    setEmailThankYou(false)
+    setShuffleKey((k) => k + 1)
   }
 
   const handleSendEmail = () => {
@@ -409,6 +448,24 @@ export function QuizSection() {
               </button>
             ))}
           </div>
+          <div className="quiz-nav-actions">
+            {currentIndex > 0 && (
+              <button
+                type="button"
+                className="secondary-cta quiz-back-button"
+                onClick={handleBackToPrevious}
+              >
+                ← חזרה לשאלה קודמת
+              </button>
+            )}
+            <button
+              type="button"
+              className="quiz-reset-button"
+              onClick={handleResetQuiz}
+            >
+              איפוס החידון
+            </button>
+          </div>
         </div>
       )}
 
@@ -416,13 +473,24 @@ export function QuizSection() {
         <div className="quiz-card quiz-explanation-card">
           <p className="quiz-explanation-label">הסבר קצר:</p>
           <p className="quiz-explanation-text">{lastSelectedOption.explanation}</p>
-          <button
-            type="button"
-            className="primary-cta quiz-next-button"
-            onClick={handleNextAfterExplanation}
-          >
-            {currentIndex === questions.length - 1 ? 'לסיום החידון' : 'השאלה הבאה →'}
-          </button>
+          <div className="quiz-explanation-actions">
+            {currentIndex > 0 && (
+              <button
+                type="button"
+                className="secondary-cta quiz-back-button"
+                onClick={handleBackToPrevious}
+              >
+                ← חזרה לשאלה קודמת
+              </button>
+            )}
+            <button
+              type="button"
+              className="primary-cta quiz-next-button"
+              onClick={handleNextAfterExplanation}
+            >
+              {currentIndex === questions.length - 1 ? 'לסיום החידון' : 'השאלה הבאה →'}
+            </button>
+          </div>
         </div>
       )}
 
@@ -464,6 +532,13 @@ export function QuizSection() {
                 disabled={emailThankYou}
               >
                 {emailThankYou ? 'תודה ששיתפת!' : 'שלח/י תוצאות למייל'}
+              </button>
+              <button
+                type="button"
+                className="quiz-reset-button"
+                onClick={handleResetQuiz}
+              >
+                איפוס החידון
               </button>
             </div>
             {emailThankYou && (
