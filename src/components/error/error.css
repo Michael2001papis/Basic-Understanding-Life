@@ -1,0 +1,60 @@
+.error-fallback-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.error-fallback-card {
+  max-width: 420px;
+  text-align: center;
+}
+
+.error-fallback-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: var(--text);
+}
+
+.error-fallback-text {
+  font-size: 1rem;
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.error-fallback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.error-fallback-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.error-fallback-btn:hover {
+  transform: translateY(-1px);
+}
+
+.error-fallback-btn.secondary {
+  background: var(--bg-soft);
+  color: var(--text);
+  border: 1px solid var(--border-subtle);
+}
+
+.error-fallback-btn.secondary:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
