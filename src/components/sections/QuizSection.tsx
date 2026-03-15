@@ -283,6 +283,7 @@ type QuizState = {
 }
 
 const STORAGE_KEY = 'quizState'
+/** כתובת ל־mailto בלבד – לא להציג בממשק (עקרון 14.4: שמירת חוויית משתמש טבעית ואותנטית) */
 const QUIZ_EMAIL = 'dvnka2@gmail.com'
 
 function formatDuration(ms: number): string {
