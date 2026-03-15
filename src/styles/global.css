@@ -26,6 +26,50 @@
   --accent-soft: #4b5563;
 }
 
+/* ניגודיות חום (18.20.2) */
+:root[data-contrast='brown'] {
+  --bg: #1c1917;
+  --bg-elevated: #292524;
+  --bg-soft: #44403c;
+  --border-subtle: rgba(168, 162, 158, 0.4);
+  --text: #e7e5e4;
+  --text-muted: #a8a29e;
+  --accent: #d97706;
+  --accent-soft: #fcd34d;
+}
+:root[data-theme='light'][data-contrast='brown'] {
+  --bg: #fef3c7;
+  --bg-elevated: #fef9c3;
+  --bg-soft: #fde68a;
+  --border-subtle: #f59e0b;
+  --text: #451a03;
+  --text-muted: #92400e;
+  --accent: #b45309;
+  --accent-soft: #78350f;
+}
+
+/* ניגודיות כחול (18.20.2) */
+:root[data-contrast='blue'] {
+  --bg: #0c4a6e;
+  --bg-elevated: #075985;
+  --bg-soft: #0369a1;
+  --border-subtle: rgba(125, 211, 252, 0.4);
+  --text: #e0f2fe;
+  --text-muted: #7dd3fc;
+  --accent: #38bdf8;
+  --accent-soft: #bae6fd;
+}
+:root[data-theme='light'][data-contrast='blue'] {
+  --bg: #e0f2fe;
+  --bg-elevated: #f0f9ff;
+  --bg-soft: #bae6fd;
+  --border-subtle: #0284c7;
+  --text: #0c4a6e;
+  --text-muted: #0369a1;
+  --accent: #0284c7;
+  --accent-soft: #075985;
+}
+
 html {
   overflow-x: hidden;
 }
@@ -48,9 +92,37 @@ body {
     color 0.25s ease;
 }
 
+/* גודל אותיות (18.20.2) */
+html[data-font-size='large'] body {
+  font-size: 1.125rem;
+}
+html[data-font-size='small'] body {
+  font-size: 0.875rem;
+}
+
+/* ממשק מהיר – הפחתת אפקטים (18.20.2) */
+html[data-quick-ui='true'] body {
+  transition: none;
+}
+html[data-quick-ui='true'] .view-content {
+  contain: layout style;
+}
+html[data-quick-ui='true'] * {
+  transition-duration: 0.05s !important;
+}
+html[data-quick-ui='true'] .primary-cta {
+  box-shadow: none;
+}
+
 @media (max-width: 480px) {
   body {
     font-size: 0.95rem;
+  }
+  html[data-font-size='large'] body {
+    font-size: 1.05rem;
+  }
+  html[data-font-size='small'] body {
+    font-size: 0.8125rem;
   }
 }
 
@@ -64,9 +136,10 @@ main {
   flex: 1;
 }
 
-/* תצוגות פנימיות SPA (16.5) */
+/* תצוגות פנימיות SPA (16.5) – contain לשיפור ביצועים (18.20.3) */
 .view-content {
   min-height: 60vh;
+  contain: layout;
 }
 
 .site-header {
@@ -119,6 +192,99 @@ main {
 .theme-toggle:hover {
   background: rgba(148, 163, 184, 0.2);
   transform: translateY(-1px);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.settings-toggle {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+.settings-toggle:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.settings-panel {
+  position: absolute;
+  top: 100%;
+  inset-inline-end: 0;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  min-width: 220px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 30;
+}
+.settings-panel-title {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.settings-group {
+  margin-bottom: 0.75rem;
+}
+.settings-group:last-of-type {
+  margin-bottom: 0;
+}
+.settings-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+.settings-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.settings-btn {
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.settings-btn:hover {
+  background: rgba(148, 163, 184, 0.15);
+}
+.settings-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.settings-group-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.settings-group-checkbox input {
+  width: 1rem;
+  height: 1rem;
+}
+.settings-desc {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  margin-inline-start: 1.5rem;
 }
 
 .main-nav ul {

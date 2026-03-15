@@ -274,36 +274,6 @@ type QuizState = {
 }
 
 const STORAGE_KEY = 'quizState'
-/** כתובת ל־mailto בלבד – לא להציג בממשק (עקרון 14.4: שמירת חוויית משתמש טבעית ואותנטית) */
-const QUIZ_EMAIL = 'dvnka2@gmail.com'
-
-function formatDuration(ms: number): string {
-  const sec = Math.floor(ms / 1000)
-  const min = Math.floor(sec / 60)
-  if (min > 0) return `${min} דקות ו־${sec % 60} שניות`
-  return `${sec} שניות`
-}
-
-function buildEmailBody(answers: Record<string, string>, openAnswer: string, startTime?: number): string {
-  const lines: string[] = ['תוצאות משחקון – להיות שם באמת', '', '--- תשובות ---']
-  questions.forEach((q) => {
-    const optId = answers[q.id]
-    const opt = q.options.find((o) => o.id === optId)
-    lines.push(`שאלה: ${q.text}`)
-    lines.push(`תשובה: ${opt ? opt.label : '-'}`)
-    lines.push('')
-  })
-  if (startTime) {
-    const duration = Date.now() - startTime
-    lines.push(`זמן מילוי: ${formatDuration(duration)}`)
-    lines.push('')
-  }
-  if (openAnswer.trim()) {
-    lines.push('--- תשובה פתוחה ---')
-    lines.push(openAnswer.trim())
-  }
-  return lines.join('\n')
-}
 
 export function QuizSection() {
   const [shuffleKey, setShuffleKey] = useState(0)
@@ -322,7 +292,6 @@ export function QuizSection() {
   const [openAnswer, setOpenAnswer] = useState('')
   const [showExplanation, setShowExplanation] = useState<string | null>(null)
   const [lastSelectedOption, setLastSelectedOption] = useState<Option | null>(null)
-  const [emailThankYou, setEmailThankYou] = useState(false)
   const quizStartTimeRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -401,17 +370,7 @@ export function QuizSection() {
     setOpenAnswer('')
     setShowExplanation(null)
     setLastSelectedOption(null)
-    setEmailThankYou(false)
     setShuffleKey((k) => k + 1)
-  }
-
-  const handleSendEmail = () => {
-    const startTime = quizStartTimeRef.current ?? 0
-    const body = buildEmailBody(answers, openAnswer, startTime)
-    const subject = encodeURIComponent('תוצאות משחקון – להיות שם באמת')
-    const bodyEnc = encodeURIComponent(body)
-    window.open(`mailto:${QUIZ_EMAIL}?subject=${subject}&body=${bodyEnc}`, '_blank', 'noopener,noreferrer')
-    setEmailThankYou(true)
   }
 
   const showQuestion = !finished && !showExplanation
@@ -519,28 +478,14 @@ export function QuizSection() {
               </button>
               <button
                 type="button"
-                className="secondary-cta"
-                onClick={handleSendEmail}
-                disabled={emailThankYou}
-              >
-                {emailThankYou ? 'תודה ששיתפת!' : 'שלח/י תוצאות למייל'}
-              </button>
-              <button
-                type="button"
                 className="quiz-reset-button"
                 onClick={handleResetQuiz}
               >
                 איפוס החידון
               </button>
             </div>
-            {emailThankYou && (
-              <p className="quiz-thank-you-msg">
-                תודה! חלון המייל נפתח – אם תרצי לשלוח, לחצי שליחה באפליקציית הדוא"ל.
-              </p>
-            )}
             <p className="quiz-note">
-              כל הבחירות והתשובה הפתוחה נשמרות באופן מקומי בדפדפן שלך. שליחת
-              התוצאות למייל פותחת את אפליקציית הדוא"ל עם הנתונים – השליחה בידייך.
+              כל הבחירות והתשובה הפתוחה נשמרות באופן מקומי בדפדפן שלך.
             </p>
           </div>
         </div>

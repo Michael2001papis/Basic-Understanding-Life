@@ -6,7 +6,11 @@ import { MaintenanceScreen } from './components/maintenance/MaintenanceScreen'
 import { ErrorBoundary } from './components/error/ErrorBoundary'
 import { NotFoundPage } from './components/error/NotFoundPage'
 import { App } from './App'
+import { loadSettings, applySettingsToDocument } from './settingsConfig'
 import './styles/global.css'
+
+// הפעלת הגדרות נגישות לפני רינדור (18.20.2) – מונע הבזק עיצוב
+applySettingsToDocument(loadSettings())
 
 // תיעוד בהפעלה – הפרדה ברורה בקונסול
 const CONSOLE_SEP = '────────────────────────────────────────'

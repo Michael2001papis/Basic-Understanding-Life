@@ -1,6 +1,12 @@
 import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import type { ViewId } from '../../viewConfig'
+import {
+  loadSettings,
+  saveSettings,
+  applySettingsToDocument,
+  type SiteSettings,
+} from '../../settingsConfig'
 import { Header } from './Header'
 import { Footer } from './Footer'
 
@@ -19,12 +25,18 @@ export function AppLayout({ children, currentView, onNavigate }: AppLayoutProps)
     return prefersDark ? 'dark' : 'light'
   })
 
+  const [settings, setSettings] = useState<SiteSettings>(loadSettings)
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     window.localStorage.setItem('theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    applySettingsToDocument(settings)
+    saveSettings(settings)
+  }, [settings])
 
   useEffect(() => {
     const handleScroll = () => setShowBackToTop(window.scrollY > 400)
@@ -39,6 +51,8 @@ export function AppLayout({ children, currentView, onNavigate }: AppLayoutProps)
       <Header
         theme={theme}
         onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
+        settings={settings}
+        onSettingsChange={setSettings}
         currentView={currentView}
         onNavigate={onNavigate}
       />

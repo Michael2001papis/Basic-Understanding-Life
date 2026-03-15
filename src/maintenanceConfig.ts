@@ -3,4 +3,4 @@
  * true  = מוצג מסך שיפוצים + משחק המתנה
  * false = האתר פועל כרגיל
  */
-export const MAINTENANCE_MODE = false
+export const MAINTENANCE_MODE = true
