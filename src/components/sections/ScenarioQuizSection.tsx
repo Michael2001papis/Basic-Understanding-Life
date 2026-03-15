@@ -1,5 +1,15 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SectionWrapper } from '../shared/SectionWrapper'
+
+/** Fisher-Yates – סדר אקראי לאפשרויות בכל טעינה/איפוס */
+function shuffle<T>(array: T[]): T[] {
+  const out = [...array]
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
 
 type ScenarioOption = {
   id: string
@@ -141,11 +151,21 @@ const scenarios: Scenario[] = [
 ]
 
 export function ScenarioQuizSection() {
+  const [shuffleKey, setShuffleKey] = useState(0)
+  const shuffledScenarios = useMemo(
+    () =>
+      scenarios.map((s) => ({
+        ...s,
+        options: shuffle([...s.options]),
+      })),
+    [shuffleKey],
+  )
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedOption, setSelectedOption] = useState<ScenarioOption | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
 
-  const current = scenarios[currentIndex]
+  const current = shuffledScenarios[currentIndex]
   const isLast = currentIndex === scenarios.length - 1
 
   const handleSelect = (opt: ScenarioOption) => {
@@ -157,6 +177,19 @@ export function ScenarioQuizSection() {
     setSelectedOption(null)
     setShowExplanation(false)
     setCurrentIndex((prev) => (isLast ? 0 : prev + 1))
+  }
+
+  const handleBack = () => {
+    setSelectedOption(null)
+    setShowExplanation(false)
+    setCurrentIndex((prev) => Math.max(0, prev - 1))
+  }
+
+  const handleReset = () => {
+    setCurrentIndex(0)
+    setSelectedOption(null)
+    setShowExplanation(false)
+    setShuffleKey((k) => k + 1)
   }
 
   return (
@@ -176,27 +209,58 @@ export function ScenarioQuizSection() {
         <p className="quiz-question scenario-text">{current.scenario}</p>
 
         {!showExplanation ? (
-          <div className="quiz-options">
-            {current.options.map((opt) => (
+          <>
+            <div className="quiz-options">
+              {current.options.map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  className="quiz-option"
+                  onClick={() => handleSelect(opt)}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <div className="quiz-nav-actions">
+              {currentIndex > 0 && (
+                <button
+                  type="button"
+                  className="secondary-cta quiz-back-button"
+                  onClick={handleBack}
+                >
+                  ← חזרה אחורה
+                </button>
+              )}
               <button
-                key={opt.id}
                 type="button"
-                className="quiz-option"
-                onClick={() => handleSelect(opt)}
+                className="quiz-reset-button"
+                onClick={handleReset}
               >
-                {opt.label}
+                איפוס החידון
               </button>
-            ))}
-          </div>
+            </div>
+          </>
         ) : (
           <div className="quiz-explanation-card">
             <p className="quiz-explanation-label">הסבר:</p>
             <p className="quiz-explanation-text">
               {selectedOption?.explanation ?? ''}
             </p>
-            <button type="button" className="primary-cta quiz-next-button" onClick={handleNext}>
-              {isLast ? 'חזרה לתרחיש הראשון' : 'התרחיש הבא →'}
-            </button>
+            <div className="quiz-explanation-actions">
+              {currentIndex > 0 && (
+                <button
+                  type="button"
+                  className="secondary-cta quiz-back-button"
+                  onClick={handleBack}
+                >
+                  ← חזרה אחורה
+                </button>
+              )}
+              <button type="button" className="primary-cta quiz-next-button" onClick={handleNext}>
+                {isLast ? 'חזרה לתרחיש הראשון' : 'התרחיש הבא →'}
+              </button>
+            </div>
           </div>
         )}
       </div>
