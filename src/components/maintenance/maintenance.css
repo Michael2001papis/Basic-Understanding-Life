@@ -1,0 +1,121 @@
+.maintenance-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.maintenance-card {
+  max-width: 420px;
+  text-align: center;
+}
+
+.maintenance-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.maintenance-title {
+  font-size: 1.75rem;
+  margin: 0 0 0.75rem;
+}
+
+.maintenance-text {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.maintenance-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+}
+
+.maintenance-cta {
+  display: inline-block;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent), #ec4899);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.maintenance-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.35);
+}
+
+/* Waiting game container */
+.waiting-game-wrap {
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.waiting-game-score {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.waiting-game-canvas-wrap {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.waiting-game-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.waiting-game-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.waiting-game-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-soft);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.waiting-game-btn:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.waiting-game-btn.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+.waiting-game-over {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}

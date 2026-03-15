@@ -1,6 +1,8 @@
 /* Built by Michael Papismedov – MP */
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { MAINTENANCE_MODE } from './maintenanceConfig'
+import { MaintenanceScreen } from './components/maintenance/MaintenanceScreen'
 import { App } from './App'
 import './styles/global.css'
 
@@ -16,7 +18,7 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <React.StrictMode>
-      <App />
+      {MAINTENANCE_MODE ? <MaintenanceScreen /> : <App />}
     </React.StrictMode>,
   )
 }
