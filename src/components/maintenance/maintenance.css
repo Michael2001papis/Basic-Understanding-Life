@@ -73,11 +73,51 @@
 }
 
 .waiting-game-canvas-wrap {
+  position: relative;
   border-radius: 0.75rem;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid var(--border-subtle);
   background: var(--bg-elevated);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* כפתור קפיצה – מוצג רק במובייל ובטאבלט (16) */
+.waiting-game-jump-btn {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .waiting-game-jump-btn {
+    display: flex;
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    min-width: 3.5rem;
+    min-height: 3.5rem;
+    border-radius: 50%;
+    border: 2px solid var(--border-subtle);
+    background: var(--bg-soft);
+    color: var(--accent);
+    font-size: 1.75rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.1s ease, background 0.15s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .waiting-game-jump-btn:hover,
+  .waiting-game-jump-btn:active {
+    background: rgba(168, 85, 247, 0.25);
+    transform: scale(0.96);
+  }
 }
 
 .waiting-game-canvas {

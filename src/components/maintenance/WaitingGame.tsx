@@ -46,6 +46,14 @@ export function WaitingGame({ onBack }: Props) {
     setGameOver(false)
   }, [])
 
+  const handleJump = useCallback(() => {
+    const state = gameStateRef.current
+    if (!state.running) return
+    if (state.vy === 0 && state.charY >= GROUND_Y - CHAR_H - 2) {
+      state.vy = JUMP_VEL
+    }
+  }, [])
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -146,9 +154,7 @@ export function WaitingGame({ onBack }: Props) {
     }
 
     const handleClick = () => {
-      if (gameStateRef.current.vy === 0 && gameStateRef.current.charY >= GROUND_Y - CHAR_H - 2) {
-        gameStateRef.current.vy = JUMP_VEL
-      }
+      handleJump()
     }
 
     canvas.addEventListener('click', handleClick)
@@ -160,7 +166,7 @@ export function WaitingGame({ onBack }: Props) {
       window.removeEventListener('keydown', handleKey)
       canvas.removeEventListener('click', handleClick)
     }
-  }, [gameOver])
+  }, [gameOver, handleJump])
 
   return (
     <div className="waiting-game-wrap">
@@ -173,6 +179,14 @@ export function WaitingGame({ onBack }: Props) {
           height={GAME_HEIGHT}
           style={{ width: '100%', maxWidth: GAME_WIDTH }}
         />
+        <button
+          type="button"
+          className="waiting-game-jump-btn"
+          onClick={handleJump}
+          aria-label="קפיצה"
+        >
+          ↑
+        </button>
       </div>
       {gameOver && <p className="waiting-game-over">המשחק נגמר – איפוס או חזרה</p>}
       <div className="waiting-game-buttons">
