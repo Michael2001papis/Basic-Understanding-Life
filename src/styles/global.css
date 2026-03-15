@@ -405,14 +405,141 @@ main {
   transform: translateY(-4px) rotate(-45deg);
 }
 
+/* תמונות רקע (22.5, 24): public/backgrounds/ – מיפוי לפי אזור. שכבת overlay לקריאות. */
 .hero-section {
+  position: relative;
   padding: 4rem 1.25rem 3rem;
-  background: radial-gradient(circle at top, var(--bg-elevated) 0, var(--bg) 55%);
+  background-color: var(--bg);
+  background-image: url(/backgrounds/hero-open.jpg), radial-gradient(circle at top, var(--bg-elevated) 0, var(--bg) 55%);
+  background-size: cover, auto;
+  background-position: center, top;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(15, 23, 42, 0.65);
+}
+
+[data-theme='light'] .hero-section::before {
+  background: rgba(249, 250, 251, 0.55);
 }
 
 .hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 960px;
   margin: 0 auto;
+}
+
+/* חידון + חידון תרחישים – אותה תמונת רקע (סעיף 24) */
+.view-content.view-quiz,
+.view-content.view-scenario-quiz {
+  position: relative;
+  background-color: var(--bg);
+  background-image: url(/backgrounds/quizzes.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.view-content.view-quiz::before,
+.view-content.view-scenario-quiz::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+[data-theme='light'] .view-content.view-quiz::before,
+[data-theme='light'] .view-content.view-scenario-quiz::before {
+  background: rgba(249, 250, 251, 0.5);
+}
+
+.view-content.view-quiz > *,
+.view-content.view-scenario-quiz > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* סקשן נוכחות בזוגיות (24) */
+#presence.page-section {
+  position: relative;
+  background-color: var(--bg);
+  background-image: url(/backgrounds/presence.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+#presence.page-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+[data-theme='light'] #presence.page-section::before {
+  background: rgba(249, 250, 251, 0.5);
+}
+
+#presence.page-section .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* סיטואציות מהחיים (24) */
+.view-content.view-life-situations {
+  position: relative;
+  background-color: var(--bg);
+  background-image: url(/backgrounds/life-situations.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.view-content.view-life-situations::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(15, 23, 42, 0.65);
+}
+
+[data-theme='light'] .view-content.view-life-situations::before {
+  background: rgba(249, 250, 251, 0.55);
+}
+
+.view-content.view-life-situations > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* סקשן FAQ (24) – רקע מינימליסטי, קריאות ראשונה */
+#faq.page-section {
+  position: relative;
+  background-color: var(--bg);
+  background-image: url(/backgrounds/faq.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+#faq.page-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(15, 23, 42, 0.7);
+}
+
+[data-theme='light'] #faq.page-section::before {
+  background: rgba(249, 250, 251, 0.65);
+}
+
+#faq.page-section .section-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-text {

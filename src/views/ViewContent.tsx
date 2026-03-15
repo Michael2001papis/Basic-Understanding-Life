@@ -19,15 +19,15 @@ type Props = {
   viewId: ViewId
 }
 
-function ViewWrapper({ children }: { children: ReactNode }) {
-  return <div className="view-content">{children}</div>
+function ViewWrapper({ children, viewId }: { children: ReactNode; viewId: ViewId }) {
+  return <div className={`view-content view-${viewId}`}>{children}</div>
 }
 
 export function ViewContent({ viewId }: Props) {
   switch (viewId) {
     case 'home':
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId={viewId}>
           <HeroSection />
           <IntroSection />
           <PresenceMeaningSection />
@@ -39,39 +39,39 @@ export function ViewContent({ viewId }: Props) {
       )
     case 'quiz':
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId={viewId}>
           <QuizSection />
         </ViewWrapper>
       )
     case 'scenario-quiz':
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId={viewId}>
           <ScenarioQuizSection />
         </ViewWrapper>
       )
     case 'life-situations':
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId={viewId}>
           <LifeSituationsSection />
         </ViewWrapper>
       )
     case 'patterns-needs':
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId={viewId}>
           <RepeatingPatternsSection />
           <EmotionalNeedsSection />
         </ViewWrapper>
       )
     case 'faq-final':
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId={viewId}>
           <FAQSection />
           <FinalMessageSection />
         </ViewWrapper>
       )
     default:
       return (
-        <ViewWrapper>
+        <ViewWrapper viewId="home">
           <HeroSection />
         </ViewWrapper>
       )
