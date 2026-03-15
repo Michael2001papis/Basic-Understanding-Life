@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { navItems } from '../../navigationConfig'
 import { Header } from './Header'
 import { Footer } from './Footer'
 
@@ -17,6 +18,8 @@ export function AppLayout({ children }: AppLayoutProps) {
   })
 
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
+  const intersectingRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -29,6 +32,30 @@ export function AppLayout({ children }: AppLayoutProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const ids: string[] = navItems.map((item) => item.id)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).id
+          if (entry.isIntersecting) {
+            intersectingRef.current.add(id)
+          } else {
+            intersectingRef.current.delete(id)
+          }
+        }
+        const first: string | null = ids.find((id: string) => intersectingRef.current.has(id)) ?? null
+        setActiveSectionId(first)
+      },
+      { rootMargin: '-15% 0px -70% 0px', threshold: 0 }
+    )
+    ids.forEach((id: string) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [])
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
@@ -36,6 +63,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       <Header
         theme={theme}
         onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
+        activeSectionId={activeSectionId}
       />
       <main>{children}</main>
       <Footer />

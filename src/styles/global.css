@@ -142,6 +142,12 @@ main {
   background: rgba(148, 163, 184, 0.2);
 }
 
+.main-nav button.nav-item-active {
+  background: rgba(168, 85, 247, 0.2);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
 @media (max-width: 768px) {
   .header-inner {
     flex-direction: row;

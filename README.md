@@ -76,6 +76,8 @@ npm run dev
 
 פרטים מלאים ו־checklist: [docs/QUALITY_CONTROL.md](docs/QUALITY_CONTROL.md).
 
+הבטחת מבנה SPA מלא (ניווט ללא רענון, הדגשת סקשן פעיל, שמירת מצב): [docs/SPA.md](docs/SPA.md).
+
 ## חתימת מפתח
 
 חתימת המפתח מופיעה:

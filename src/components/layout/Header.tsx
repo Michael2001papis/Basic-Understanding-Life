@@ -4,9 +4,10 @@ import { navItems } from '../../navigationConfig'
 type HeaderProps = {
   theme: 'light' | 'dark'
   onToggleTheme: () => void
+  activeSectionId?: string | null
 }
 
-export function Header({ theme, onToggleTheme }: HeaderProps) {
+export function Header({ theme, onToggleTheme, activeSectionId = null }: HeaderProps) {
   const [open, setOpen] = useState(false)
 
   const handleScroll = (id: string) => {
@@ -46,7 +47,11 @@ export function Header({ theme, onToggleTheme }: HeaderProps) {
           <ul>
             {navItems.map((item) => (
               <li key={item.id}>
-                <button type="button" onClick={() => handleScroll(item.id)}>
+                <button
+                  type="button"
+                  className={activeSectionId === item.id ? 'nav-item-active' : ''}
+                  onClick={() => handleScroll(item.id)}
+                >
                   {item.label}
                 </button>
               </li>
