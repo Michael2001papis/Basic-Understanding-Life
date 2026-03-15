@@ -410,7 +410,7 @@ main {
   position: relative;
   padding: 4rem 1.25rem 3rem;
   background-color: var(--bg);
-  background-image: url(/backgrounds/hero-open.jpg), radial-gradient(circle at top, var(--bg-elevated) 0, var(--bg) 55%);
+  background-image: url("/backgrounds/First image - to open the site.jpg"), radial-gradient(circle at top, var(--bg-elevated) 0, var(--bg) 55%);
   background-size: cover, auto;
   background-position: center, top;
 }
@@ -439,7 +439,7 @@ main {
 .view-content.view-scenario-quiz {
   position: relative;
   background-color: var(--bg);
-  background-image: url(/backgrounds/quizzes.jpg);
+  background-image: url("/backgrounds/Background image for quizzes.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -468,7 +468,7 @@ main {
 #presence.page-section {
   position: relative;
   background-color: var(--bg);
-  background-image: url(/backgrounds/presence.jpg);
+  background-image: url("/backgrounds/What does presence in a relationship really mean.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -490,16 +490,16 @@ main {
   z-index: 1;
 }
 
-/* סיטואציות מהחיים (24) */
-.view-content.view-life-situations {
+/* סיטואציות מהחיים (24) – רקע על הסקשן עצמו */
+#life-situations.page-section {
   position: relative;
   background-color: var(--bg);
-  background-image: url(/backgrounds/life-situations.jpg);
+  background-image: url("/backgrounds/Life situations.jpg");
   background-size: cover;
   background-position: center;
 }
 
-.view-content.view-life-situations::before {
+#life-situations.page-section::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -507,11 +507,11 @@ main {
   background: rgba(15, 23, 42, 0.65);
 }
 
-[data-theme='light'] .view-content.view-life-situations::before {
+[data-theme='light'] #life-situations.page-section::before {
   background: rgba(249, 250, 251, 0.55);
 }
 
-.view-content.view-life-situations > * {
+#life-situations.page-section .section-inner {
   position: relative;
   z-index: 1;
 }
@@ -520,7 +520,7 @@ main {
 #faq.page-section {
   position: relative;
   background-color: var(--bg);
-  background-image: url(/backgrounds/faq.jpg);
+  background-image: url("/backgrounds/Frequently asked questions.jpg");
   background-size: cover;
   background-position: center;
 }

@@ -80,15 +80,15 @@
 
 ## 7. מיפוי תמונות לפי אזור (סעיף 24)
 
-| קובץ בפרויקט (שם נקי) | תמונה מקורית | אזור באתר |
-|------------------------|---------------|-----------|
-| `hero-open.jpg` | First image - to open the site.jpg | אזור הפתיחה (Hero) – כותרת, ציטוט, כפתור |
-| `quizzes.jpg` | Background image for quizzes.jpg | חידון + חידון תרחישים (views: quiz, scenario-quiz) |
-| `presence.jpg` | What does presence in a relationship really mean.jpg | סקשן "מה באמת אומרת נוכחות בזוגיות" (#presence) |
-| `life-situations.jpg` | Life situations.jpg | view סיטואציות מהחיים (כרטיסי ארבע הסיטואציות) |
-| `faq.jpg` | Frequently asked questions.jpg | סקשן "שאלות שעולות הרבה" (#faq) |
+שמות הקבצים – בדיוק כמו שמופיעים בתיקייה. לא משנים שמות.
 
-**מה לעשות:** להעתיק את חמש התמונות המקוריות לתיקייה זו ולשנות את שמן לשמות הנקיים בטבלה (או לייצא/לשמור ישירות עם השמות האלה). פורמט: JPG או WebP, אופטימיזציה למשקל סביר.
+| שם הקובץ (כמו שבתיקייה) | אזור באתר |
+|--------------------------|-----------|
+| `First image - to open the site.jpg` | אזור הפתיחה (Hero) – כותרת, ציטוט, כפתור |
+| `Background image for quizzes.jpg` | חידון + חידון תרחישים (views: quiz, scenario-quiz) |
+| `What does presence in a relationship really mean.jpg` | סקשן "מה באמת אומרת נוכחות בזוגיות" (#presence) |
+| `Life situations.jpg` | view סיטואציות מהחיים (כרטיסי ארבע הסיטואציות) |
+| `Frequently asked questions.jpg` | סקשן "שאלות שעולות הרבה" (#faq) |
 
 - **Hero:** רקע ראשון למשתמש – מזמין, רגשי, רך. שכבת overlay שומרת על קריאות.
 - **חידונים:** אותה תמונה לשני האזורים – אחידות, תמיכה באווירה בלי להשתלט על הכרטיסים.
