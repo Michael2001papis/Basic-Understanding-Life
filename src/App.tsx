@@ -1,38 +1,32 @@
 /* Built by Michael Papismedov – MP */
+import { useEffect, useState } from 'react'
+import type { ViewId } from './viewConfig'
+import { getInitialViewId, viewIdToHash, hashToViewId } from './viewConfig'
 import { AppLayout } from './components/layout/AppLayout'
-import { HeroSection } from './components/sections/HeroSection'
-import { IntroSection } from './components/sections/IntroSection'
-import { PresenceMeaningSection } from './components/sections/PresenceMeaningSection'
-import { BodyMindSection } from './components/sections/BodyMindSection'
-import { AngerExplanationSection } from './components/sections/AngerExplanationSection'
-import { CommonMistakesSection } from './components/sections/CommonMistakesSection'
-import { CorrectResponseSection } from './components/sections/CorrectResponseSection'
-import { LifeSituationsSection } from './components/sections/LifeSituationsSection'
-import { QuizSection } from './components/sections/QuizSection'
-import { ScenarioQuizSection } from './components/sections/ScenarioQuizSection'
-import { RepeatingPatternsSection } from './components/sections/RepeatingPatternsSection'
-import { EmotionalNeedsSection } from './components/sections/EmotionalNeedsSection'
-import { FAQSection } from './components/sections/FAQSection'
-import { FinalMessageSection } from './components/sections/FinalMessageSection'
+import { ViewContent } from './views/ViewContent'
 
 export function App() {
+  const [currentView, setCurrentView] = useState<ViewId>(getInitialViewId)
+
+  useEffect(() => {
+    const hash = viewIdToHash(currentView)
+    if (window.location.hash !== hash) {
+      window.history.replaceState(null, '', hash)
+    }
+  }, [currentView])
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const id = hashToViewId(window.location.hash)
+      if (id) setCurrentView(id)
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
   return (
-    <AppLayout>
-      <HeroSection />
-      <IntroSection />
-      <PresenceMeaningSection />
-      <BodyMindSection />
-      <AngerExplanationSection />
-      <CommonMistakesSection />
-      <CorrectResponseSection />
-      <LifeSituationsSection />
-      <QuizSection />
-      <ScenarioQuizSection />
-      <RepeatingPatternsSection />
-      <EmotionalNeedsSection />
-      <FAQSection />
-      <FinalMessageSection />
+    <AppLayout currentView={currentView} onNavigate={setCurrentView}>
+      <ViewContent viewId={currentView} />
     </AppLayout>
   )
 }
-

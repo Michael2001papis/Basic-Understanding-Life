@@ -1,19 +1,19 @@
 import { useState } from 'react'
-import { navItems } from '../../navigationConfig'
+import { viewItems } from '../../viewConfig'
+import type { ViewId } from '../../viewConfig'
 
 type HeaderProps = {
   theme: 'light' | 'dark'
   onToggleTheme: () => void
-  activeSectionId?: string | null
+  currentView: ViewId
+  onNavigate: (viewId: ViewId) => void
 }
 
-export function Header({ theme, onToggleTheme, activeSectionId = null }: HeaderProps) {
+export function Header({ theme, onToggleTheme, currentView, onNavigate }: HeaderProps) {
   const [open, setOpen] = useState(false)
 
-  const handleScroll = (id: string) => {
-    const el = document.getElementById(id)
-    if (!el) return
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const handleView = (viewId: ViewId) => {
+    onNavigate(viewId)
     setOpen(false)
   }
 
@@ -43,14 +43,14 @@ export function Header({ theme, onToggleTheme, activeSectionId = null }: HeaderP
           <span />
           <span />
         </button>
-        <nav className="main-nav" aria-label="ניווט ראשי">
+        <nav className="main-nav nav-tabs" aria-label="ניווט ראשי">
           <ul>
-            {navItems.map((item) => (
+            {viewItems.map((item) => (
               <li key={item.id}>
                 <button
                   type="button"
-                  className={activeSectionId === item.id ? 'nav-item-active' : ''}
-                  onClick={() => handleScroll(item.id)}
+                  className={currentView === item.id ? 'nav-item-active' : ''}
+                  onClick={() => handleView(item.id)}
                 >
                   {item.label}
                 </button>
@@ -62,4 +62,3 @@ export function Header({ theme, onToggleTheme, activeSectionId = null }: HeaderP
     </header>
   )
 }
-

@@ -170,6 +170,14 @@ export function WaitingGame({ onBack }: Props) {
 
   return (
     <div className="waiting-game-wrap">
+      <button
+        type="button"
+        className="waiting-game-close-btn"
+        onClick={onBack}
+        aria-label="חזרה למסך השיפוצים"
+      >
+        ✕
+      </button>
       <p className="waiting-game-score">ניקוד: {score}</p>
       <div className="waiting-game-canvas-wrap">
         <canvas
@@ -192,9 +200,6 @@ export function WaitingGame({ onBack }: Props) {
       <div className="waiting-game-buttons">
         <button type="button" className="waiting-game-btn primary" onClick={resetGame}>
           איפוס
-        </button>
-        <button type="button" className="waiting-game-btn" onClick={onBack}>
-          חזרה למסך השיפוצים
         </button>
       </div>
     </div>

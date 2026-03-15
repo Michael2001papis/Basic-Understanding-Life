@@ -64,6 +64,11 @@ main {
   flex: 1;
 }
 
+/* תצוגות פנימיות SPA (16.5) */
+.view-content {
+  min-height: 60vh;
+}
+
 .site-header {
   position: sticky;
   top: 0;
