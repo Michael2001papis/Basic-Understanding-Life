@@ -1,15 +1,6 @@
 import { useMemo, useState } from 'react'
+import { shuffle } from '../../utils/shuffle'
 import { SectionWrapper } from '../shared/SectionWrapper'
-
-/** Fisher-Yates – סדר אקראי לאפשרויות בכל טעינה/איפוס */
-function shuffle<T>(array: T[]): T[] {
-  const out = [...array]
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]]
-  }
-  return out
-}
 
 type ScenarioOption = {
   id: string

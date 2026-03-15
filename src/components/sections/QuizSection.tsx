@@ -1,15 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { shuffle } from '../../utils/shuffle'
 import { SectionWrapper } from '../shared/SectionWrapper'
-
-/** Fisher-Yates shuffle – מחזיר עותק מעורבב בלי לשנות את המערך המקורי */
-function shuffle<T>(array: T[]): T[] {
-  const out = [...array]
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]]
-  }
-  return out
-}
 
 type Option = {
   id: string

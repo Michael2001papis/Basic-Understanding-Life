@@ -51,7 +51,7 @@ Basic-Understanding-Life/
 │       ├── layout/         # AppLayout, Header, Footer
 │       ├── sections/       # סקשני התוכן (Hero, Intro, Quiz וכו')
 │       └── shared/         # SectionWrapper, QuoteBlock
-└── docs/                   # תיעוד (QC, SPA, Bug Fixing)
+└── docs/                   # תיעוד (QC, SPA, Bug Fixing, Work Plan, Audit)
 ```
 
 ### תיאור קצר
@@ -160,6 +160,8 @@ npm run preview
 | [docs/QUALITY_CONTROL.md](docs/QUALITY_CONTROL.md) | בדיקה ושיפור מתמשך (QC) – checklist ורעיונות שיפור. |
 | [docs/SPA.md](docs/SPA.md) | הבטחת מבנה SPA – ניווט ללא רענון, הדגשת סקשן פעיל, שמירת מצב. |
 | [docs/BUG_FIXING_AND_STABILITY.md](docs/BUG_FIXING_AND_STABILITY.md) | תיקון באגים וייצוב – סריקה, קוד, משאבים, UI/UX, build. |
+| [docs/WORK_PLAN.md](docs/WORK_PLAN.md) | תוכנית עבודה להמשך פיתוח – שלבים א׳–ו׳, ניקוי, SPA, עיצוב, חידונים, נגישות, ליטוש. |
+| [docs/full-project-audit.txt](docs/full-project-audit.txt) | דוח סריקה מלא – מבנה, רכיבים, פיצ'רים, בעיות והמלצות. |
 
 ---
 
