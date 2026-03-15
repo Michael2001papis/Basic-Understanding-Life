@@ -140,6 +140,20 @@ main {
 .view-content {
   min-height: 60vh;
   contain: layout;
+  animation: view-fade-in 0.4s ease-out;
+}
+
+@keyframes view-fade-in {
+  from {
+    opacity: 0.92;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+html[data-quick-ui='true'] .view-content {
+  animation-duration: 0.08s;
 }
 
 .site-header {
@@ -405,7 +419,7 @@ main {
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* תמונות רקע (22.5, 24): public/backgrounds/ – מיפוי לפי אזור. שכבת overlay לקריאות. */
+/* תמונות רקע (22.5, 24, 25.1): מיפוי לפי אזור. שכבת overlay. התאמה לכל המסכים – ללא עיוות, ללא חיתוך לא נכון. */
 .hero-section {
   position: relative;
   padding: 4rem 1.25rem 3rem;
@@ -413,6 +427,8 @@ main {
   background-image: url("/backgrounds/First image - to open the site.jpg"), radial-gradient(circle at top, var(--bg-elevated) 0, var(--bg) 55%);
   background-size: cover, auto;
   background-position: center, top;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: scroll, scroll;
 }
 
 .hero-section::before {
@@ -420,11 +436,12 @@ main {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(15, 23, 42, 0.58);
+  transition: background 0.3s ease;
 }
 
 [data-theme='light'] .hero-section::before {
-  background: rgba(249, 250, 251, 0.55);
+  background: rgba(249, 250, 251, 0.48);
 }
 
 .hero-inner {
@@ -442,6 +459,8 @@ main {
   background-image: url("/backgrounds/Background image for quizzes.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 .view-content.view-quiz::before,
@@ -450,12 +469,13 @@ main {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.54);
+  transition: background 0.3s ease;
 }
 
 [data-theme='light'] .view-content.view-quiz::before,
 [data-theme='light'] .view-content.view-scenario-quiz::before {
-  background: rgba(249, 250, 251, 0.5);
+  background: rgba(249, 250, 251, 0.45);
 }
 
 .view-content.view-quiz > *,
@@ -471,6 +491,8 @@ main {
   background-image: url("/backgrounds/What does presence in a relationship really mean.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 #presence.page-section::before {
@@ -478,11 +500,12 @@ main {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.54);
+  transition: background 0.3s ease;
 }
 
 [data-theme='light'] #presence.page-section::before {
-  background: rgba(249, 250, 251, 0.5);
+  background: rgba(249, 250, 251, 0.45);
 }
 
 #presence.page-section .section-inner {
@@ -497,6 +520,8 @@ main {
   background-image: url("/backgrounds/Life situations.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 #life-situations.page-section::before {
@@ -504,11 +529,12 @@ main {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(15, 23, 42, 0.58);
+  transition: background 0.3s ease;
 }
 
 [data-theme='light'] #life-situations.page-section::before {
-  background: rgba(249, 250, 251, 0.55);
+  background: rgba(249, 250, 251, 0.48);
 }
 
 #life-situations.page-section .section-inner {
@@ -523,6 +549,8 @@ main {
   background-image: url("/backgrounds/Frequently asked questions.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 #faq.page-section::before {
@@ -530,16 +558,57 @@ main {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(15, 23, 42, 0.62);
+  transition: background 0.3s ease;
 }
 
 [data-theme='light'] #faq.page-section::before {
-  background: rgba(249, 250, 251, 0.65);
+  background: rgba(249, 250, 251, 0.55);
 }
 
 #faq.page-section .section-inner {
   position: relative;
   z-index: 1;
+}
+
+/* 25.1 – התאמת תמונות רקע לכל סוגי המסכים: טלפון, טאבלט, מחשב, רחב */
+/* יחס גודל נשמר (cover), אין עיוות, אין יציאה מהקונטיינר. מיקום מותאם במסכים צרים. */
+
+@media (max-width: 480px) {
+  .hero-section {
+    background-position: center 25%, top;
+  }
+
+  .view-content.view-quiz,
+  .view-content.view-scenario-quiz,
+  #presence.page-section,
+  #life-situations.page-section,
+  #faq.page-section {
+    background-position: center center;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .hero-section {
+    background-position: center 20%, top;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .hero-section {
+    background-position: center center, top;
+  }
+}
+
+@media (min-width: 1201px) {
+  .hero-section,
+  .view-content.view-quiz,
+  .view-content.view-scenario-quiz,
+  #presence.page-section,
+  #life-situations.page-section,
+  #faq.page-section {
+    background-position: center center;
+  }
 }
 
 .hero-text {
