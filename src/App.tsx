@@ -7,9 +7,11 @@ import { BodyMindSection } from './components/sections/BodyMindSection'
 import { AngerExplanationSection } from './components/sections/AngerExplanationSection'
 import { CommonMistakesSection } from './components/sections/CommonMistakesSection'
 import { CorrectResponseSection } from './components/sections/CorrectResponseSection'
+import { LifeSituationsSection } from './components/sections/LifeSituationsSection'
+import { QuizSection } from './components/sections/QuizSection'
+import { ScenarioQuizSection } from './components/sections/ScenarioQuizSection'
 import { RepeatingPatternsSection } from './components/sections/RepeatingPatternsSection'
 import { EmotionalNeedsSection } from './components/sections/EmotionalNeedsSection'
-import { QuizSection } from './components/sections/QuizSection'
 import { FAQSection } from './components/sections/FAQSection'
 import { FinalMessageSection } from './components/sections/FinalMessageSection'
 
@@ -23,7 +25,9 @@ export function App() {
       <AngerExplanationSection />
       <CommonMistakesSection />
       <CorrectResponseSection />
+      <LifeSituationsSection />
       <QuizSection />
+      <ScenarioQuizSection />
       <RepeatingPatternsSection />
       <EmotionalNeedsSection />
       <FAQSection />

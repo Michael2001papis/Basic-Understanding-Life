@@ -26,6 +26,10 @@
   --accent-soft: #4b5563;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 html,
 body {
   margin: 0;
@@ -38,6 +42,7 @@ body {
   color: var(--text);
   direction: rtl;
   text-align: right;
+  overflow-x: hidden;
   transition:
     background-color 0.25s ease,
     color 0.25s ease;
@@ -271,6 +276,7 @@ h1 {
 .secondary-cta {
   border-radius: 999px;
   padding: 0.6rem 1.3rem;
+  min-height: 2.75rem;
   border: 1px solid transparent;
   font-size: 0.95rem;
   cursor: pointer;
@@ -420,6 +426,7 @@ h3 {
   background: var(--bg-elevated);
   color: var(--text);
   padding: 0.55rem 0.8rem;
+  min-height: 2.75rem;
   text-align: right;
   cursor: pointer;
   font-size: 0.95rem;
@@ -468,6 +475,100 @@ h3 {
   margin-top: 0.45rem;
   font-size: 0.8rem;
   color: var(--text-muted);
+}
+
+.quiz-explanation-card {
+  margin-top: 1rem;
+}
+
+.quiz-explanation-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+
+.quiz-explanation-text {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0;
+  border-inline-start: 3px solid var(--accent);
+  padding-inline-start: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.quiz-next-button {
+  margin-top: 0.5rem;
+}
+
+.quiz-thank-you-msg {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.section-intro {
+  margin-bottom: 1.5rem;
+  max-width: 720px;
+}
+
+.situations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.situation-card {
+  padding: 1.25rem 1.35rem;
+  border-radius: 1rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-subtle);
+}
+
+.situation-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: var(--accent);
+}
+
+.situation-desc {
+  margin: 0 0 1rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.situation-block {
+  margin: 1rem 0;
+}
+
+.situation-block-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0 0 0.35rem;
+}
+
+.situation-block ul {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.situation-block li {
+  margin-bottom: 0.35rem;
+}
+
+.scenario-quiz-card {
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 1rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-subtle);
+}
+
+.scenario-text {
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .faq-list {
@@ -586,5 +687,47 @@ textarea {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .quiz-card,
+  .scenario-quiz-card,
+  .situation-card {
+    padding: 1rem;
+  }
+
+  .quiz-option,
+  .primary-cta,
+  .secondary-cta {
+    min-height: 2.75rem;
+    touch-action: manipulation;
+  }
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 1.25rem;
+  inset-inline-end: 1.25rem;
+  z-index: 10;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
+}
+
+.back-to-top.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
